@@ -1,12 +1,14 @@
 #include <iostream>
 using namespace std;
+#define cantMax 1000
+#define cantMin 0
 
 class Cafetera {
     private:
         int _cantidadMaxima, _cantidadActual;
     public:
         Cafetera (void){
-            _cantidadMaxima=1000;
+            _cantidadMaxima=cantMax;
         }
         void Lee(int &vActual, int &vMax);
         void Guarda(int vActual);
@@ -22,15 +24,15 @@ void Cafetera::Lee(int &vActual, int &vMax) {
 int agregarCafe(int);
 int servirTaza(int);
 
-int cantAuxiliar;
 int cantUser;
 int main()
 {
-    Cafetera liquido;
-    liquido.Guarda(0);
+    Cafetera cafetera1;
+    cafetera1.Guarda(cantMin);
     int menu=1;
+    int cantAuxiliar;
     cout << "-------------------------" << endl << "Bienvenido al programa que permite controlar una cafetera" << endl;
-        do{
+    do{
         cout << "-------------------------" << endl << endl;
         cout << "Ingrese el numero que corresponda a la acción que desea realizar" << endl << endl;
         cout << " -Revisar contenido en la cafetera: 1" << endl << 
@@ -42,28 +44,28 @@ int main()
         int actual, max;
         switch (accion) {
             case 1:
-                liquido.Lee(actual, max);
-                cout << "Valor de liquido.max: " << max << "cc" << endl;
-                cout << "Valor de liquido.actual: " << actual << "cc" << endl << endl;
+                cafetera1.Lee(actual, max);
+                cout << "Valor de cafetera1.max: " << max << "cc" << endl;
+                cout << "Valor de cafetera1.actual: " << actual << "cc" << endl << endl;
                 break;
             case 2:
-                liquido.Guarda(1000);
+                cafetera1.Guarda(cantMax);
                 cout << "Se llenó la cafetera" << endl;
                 break;
             case 3:
-                liquido.Guarda(0);
+                cafetera1.Guarda(cantMin);
                 cout << "Se vació la cafetera" << endl;
                 break;
             case 4:
-                liquido.Lee(actual, max);
+                cafetera1.Lee(actual, max);
                 cantAuxiliar = agregarCafe(actual);
-                liquido.Guarda(cantAuxiliar);
+                cafetera1.Guarda(cantAuxiliar);
                 cout << "Valor de liquido.actual: " << cantAuxiliar << "cc" << endl << endl;
                 break;
             case 5:
-                liquido.Lee(actual, max);
+                cafetera1.Lee(actual, max);
                 cantAuxiliar = servirTaza(actual);
-                liquido.Guarda(cantAuxiliar);
+                cafetera1.Guarda(cantAuxiliar);
                 break;
             case 6:
                 menu=0;
@@ -79,9 +81,9 @@ int agregarCafe(int actualF){
     cout << "Ingrese la cantidad de café a agregar" << endl;
     cin >> cantUser;
     actualF = actualF + cantUser;
-    if(actualF>1000){
-        cout << "Sobran " << actualF - 1000 << "cc" << endl;
-        actualF = 1000;
+    if(actualF>cantMax){
+        cout << "Sobran " << actualF - cantMax << "cc" << endl;
+        actualF = cantMax;
         return actualF;
     }else{
         return actualF;
@@ -98,7 +100,7 @@ int servirTaza(int actualF){
         return actualF;
     }else{
         cout << "Se servirán " << actualF << "cc" << endl;
-        cout << "Valor de liquido.actual: " << 0 << "cc" << endl << endl;
-        return 0;
+        cout << "Valor de liquido.actual: " << cantMin << "cc" << endl << endl;
+        return cantMin;
     }
 }
